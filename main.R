@@ -1,5 +1,6 @@
 source('data-tidy.R')
 source('plot.function.R')
+source('wgs.R')
 
 coding.obj <- cosmid.gr.ann.c.check.back
 
