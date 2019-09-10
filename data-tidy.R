@@ -79,10 +79,11 @@ library(VariantAnnotation)
 cosmid.gr.ann <- locateVariants(cosmid.gr, txdb, AllVariants())
 cosmid.gr.ann.c <- cosmid.gr.ann[cosmid.gr.ann$LOCATION == 'coding']
 cosmid.gr.ann.c <- unique(cosmid.gr.ann.c)
+cosmid.gr.ann.c$GENEID[7] <- 28642
 cosmid.gr.ann.c.check.back<- cosmid.gr[findOverlaps(cosmid.gr,cosmid.gr.ann.c)@from,]
 table(cosmid.gr.ann$LOCATION)
 cas.offfinder.gr.ann  <- locateVariants(cas.offfinder.gr, txdb, AllVariants())
-table(cas.offfinder.gr.ann$LOCATION)
+table(unique(cas.offfinder.gr.ann)$LOCATION)
 off.spotter.gr.ann <- locateVariants(off.spotter.gr, txdb, AllVariants())
 table(off.spotter.gr.ann$LOCATION)
 cas.offfinder.gr.ann.c <- cas.offfinder.gr.ann[cas.offfinder.gr.ann$LOCATION == 'coding']
