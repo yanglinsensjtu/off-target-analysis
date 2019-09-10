@@ -85,82 +85,27 @@ off.spotter.gr.ann <- locateVariants(off.spotter.gr, txdb, AllVariants())
 table(off.spotter.gr.ann$LOCATION)
 cas.offfinder.gr.ann.c <- cas.offfinder.gr.ann[cas.offfinder.gr.ann$LOCATION == 'coding']
 
+
 # pairwiseAlignment -------------------------------------------------------
-i <- 3
+
 library(BSgenome.Hsapiens.UCSC.hg19)
 BS.hg19 <- BSgenome.Hsapiens.UCSC.hg19
-off.target.seq <- getSeq(BS.hg19, cas.offfinder.gr.ann.c)
 
-TRAC <- DNAString(read_lines('../sgRNAseq.txt'))
-a <- pairwiseAlignment(TRAC, off.target.seq[i])
-print(a)
+off.target.seq <- getSeq(BS.hg19, unique(cas.offfinder.gr.ann.c))
+targetgene <- DNAString(read_lines('../sgRNAseq.txt'))
+for (i in seq_len(length(unique(cas.offfinder.gr.ann.c)))) {
+  print(i)
+  print(pairwiseAlignment(targetgene, off.target.seq[i]))
+}
 
-# gene location visualization ---------------------------------------------
 
-chr <- as.character(cas.offfinder.gr.ann.c@seqnames[i])
-st <- as.character(cas.offfinder.gr.ann.c@strand[i])
-stt <-  IRanges::start(cas.offfinder.gr.ann.c)[i]
-ed <- IRanges::end(cas.offfinder.gr.ann.c)[i]
+off.target.seq <- getSeq(BS.hg19, unique(cosmid.gr.ann.c))
+targetgene <- DNAString(read_lines('../sgRNAseq.txt'))
+for (i in seq_len(length(unique(cosmid.gr.ann.c)))) {
+  print(i)
+  print(pairwiseAlignment(targetgene, off.target.seq[i]))
+}
 
-# annotation track creation -----------------------------------------------
 
-library(Gviz)
-anntrack  <- AnnotationTrack(start = stt,
-                             end = ed,
-                             strand = st, 
-                             chromosome = chr, 
-                             genome ="hg19", 
-                             name ="CRISPR")
-
-# biomartGeneRegiontrack creation -----------------------------------------
-
-library(biomaRt)
-f <- as.integer(stt - 60000)
-t <- as.integer(stt + 60000)
-bm <- useMart(host="grch37.ensembl.org", 
-              biomart="ENSEMBL_MART_ENSEMBL", 
-              dataset="hsapiens_gene_ensembl")
-biomTrack <- BiomartGeneRegionTrack(genome="hg19", 
-                                    chromosome=chr, 
-                                    start=f, 
-                                    end=t,
-                                    name="ENSEMBL", 
-                                    biomart=bm)
-
-# Ideogramtrack creation --------------------------------------------------
-
-itrack <- IdeogramTrack(genome = 'hg19',chromosome = chr)
-
-# genome axis track creation ----------------------------------------------
-
-gatrack <- GenomeAxisTrack(distFromAxis = 15,labelPos="below")
-
-# plot the jpg ------------------------------------------------------------
-
-sz <- c(1,1,4,1)
-ls <- list(itrack,gatrack,biomTrack,anntrack)
-mn <- str_c(i,a)
-plotTracks(trackList = ls,
-           transcriptAnnotation="symbol",
-           sizes = sz,
-           from = f,
-           to = t,
-           main = mn,
-           cex.main = 0.8)
-
-# save the image ----------------------------------------------------------
-
-oldpath <- getwd()
-setwd(dir = '../')
-jpeg(str_c(i,"output.jpg"), width = 5000, height =3090,res = 720)
-plotTracks(trackList = ls,
-           transcriptAnnotation="symbol",
-           sizes = sz,
-           from = f,
-           to = t,
-           main = mn,
-           cex.main = 0.8)
-dev.off()
-setwd(dir = oldpath)
 
 
