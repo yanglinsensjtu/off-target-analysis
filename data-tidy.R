@@ -112,11 +112,7 @@ anntrack  <- AnnotationTrack(start = stt,
                              genome ="hg19", 
                              name ="CRISPR")
 
-
-
-
 # biomartGeneRegiontrack creation -----------------------------------------
-
 
 library(biomaRt)
 f <- as.integer(stt - 60000)
@@ -133,25 +129,17 @@ biomTrack <- BiomartGeneRegionTrack(genome="hg19",
 
 # Ideogramtrack creation --------------------------------------------------
 
-
-
 itrack <- IdeogramTrack(genome = 'hg19',chromosome = chr)
 
 # genome axis track creation ----------------------------------------------
 
-
-
 gatrack <- GenomeAxisTrack(distFromAxis = 15,labelPos="below")
 
-
-
 # plot the jpg ------------------------------------------------------------
-
 
 sz <- c(1,1,4,1)
 ls <- list(itrack,gatrack,biomTrack,anntrack)
 mn <- str_c(i,a)
-
 plotTracks(trackList = ls,
            transcriptAnnotation="symbol",
            sizes = sz,
@@ -161,9 +149,9 @@ plotTracks(trackList = ls,
            cex.main = 0.8)
 
 # save the image ----------------------------------------------------------
+
 oldpath <- getwd()
 setwd(dir = '../')
-
 jpeg(str_c(i,"output.jpg"), width = 5000, height =3090,res = 720)
 plotTracks(trackList = ls,
            transcriptAnnotation="symbol",
@@ -173,8 +161,6 @@ plotTracks(trackList = ls,
            main = mn,
            cex.main = 0.8)
 dev.off()
-
 setwd(dir = oldpath)
-
 
 
