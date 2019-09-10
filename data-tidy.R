@@ -77,17 +77,18 @@ cosmid.gr <- GRanges(seqnames = cosmid$chromosome,
 
 library(VariantAnnotation)
 cosmid.gr.ann <- locateVariants(cosmid.gr, txdb, AllVariants())
-cosmid.gr.ann <- unique(cosmid.gr.ann)
 cosmid.gr.ann.c <- cosmid.gr.ann[cosmid.gr.ann$LOCATION == 'coding']
+cosmid.gr.ann.c <- unique(cosmid.gr.ann.c)
+cosmid.gr.ann.c.check.back<- cosmid.gr[findOverlaps(cosmid.gr,cosmid.gr.ann.c)@from,]
 table(cosmid.gr.ann$LOCATION)
 cas.offfinder.gr.ann  <- locateVariants(cas.offfinder.gr, txdb, AllVariants())
 table(cas.offfinder.gr.ann$LOCATION)
 off.spotter.gr.ann <- locateVariants(off.spotter.gr, txdb, AllVariants())
-off.spotter.gr.ann <- unique(off.spotter.gr.ann)
 table(off.spotter.gr.ann$LOCATION)
 cas.offfinder.gr.ann.c <- cas.offfinder.gr.ann[cas.offfinder.gr.ann$LOCATION == 'coding']
-
-
+cas.offfinder.gr.ann.c <- unique(cas.offfinder.gr.ann.c)
+cas.offfinder.gr.ann.c.check.back <- cas.offfinder.gr[findOverlaps(cas.offfinder.gr,cas.offfinder.gr.ann.c)@from,]
+cas.offfinder.gr.ann.c.check.back <- unique(cas.offfinder.gr.ann.c.check.back)
 # pairwiseAlignment -------------------------------------------------------
 
 library(BSgenome.Hsapiens.UCSC.hg19)
@@ -97,7 +98,10 @@ off.target.seq <- getSeq(BS.hg19, unique(cas.offfinder.gr.ann.c))
 targetgene <- DNAString(read_lines('../sgRNAseq.txt'))
 for (i in seq_len(length(unique(cas.offfinder.gr.ann.c)))) {
   print(i)
-  print(pairwiseAlignment(targetgene, off.target.seq[i]))
+  print(pairwiseAlignment(targetgene, 
+                          off.target.seq[i],
+                          gapOpening = 0,
+                          gapExtension = 1))
 }
 
 
@@ -105,7 +109,10 @@ off.target.seq <- getSeq(BS.hg19, unique(cosmid.gr.ann.c))
 targetgene <- DNAString(read_lines('../sgRNAseq.txt'))
 for (i in seq_len(length(unique(cosmid.gr.ann.c)))) {
   print(i)
-  print(pairwiseAlignment(targetgene, off.target.seq[i]))
+  print(pairwiseAlignment(targetgene, 
+                          off.target.seq[i],
+                          gapOpening = 0,
+                          gapExtension = 1))
 }
 
 
