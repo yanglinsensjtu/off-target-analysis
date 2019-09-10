@@ -15,7 +15,7 @@ cas.offfinder <- read.delim('../Cas-OFFinder.hg19.txt',
                             stringsAsFactors = F) %>% 
   as_tibble() 
 
-cosmid <- read_xlsx('../cosmid_hg19_qz5depo5i9_output.xlsx')
+cosmid <- read_xlsx('../cosmid_hg19_kf09aq66ka_output.xlsx')
 
 cosmid.t <- read.delim('../comsid hg19.txt',
                        header = F, 
@@ -77,6 +77,7 @@ cosmid.gr <- GRanges(seqnames = cosmid$chromosome,
 
 library(VariantAnnotation)
 cosmid.gr.ann <- locateVariants(cosmid.gr, txdb, AllVariants())
+cosmid.gr.ann.c <- cosmid.gr.ann[cosmid.gr.ann$LOCATION == 'coding']
 table(cosmid.gr.ann$LOCATION)
 cas.offfinder.gr.ann  <- locateVariants(cas.offfinder.gr, txdb, AllVariants())
 table(cas.offfinder.gr.ann$LOCATION)
@@ -160,8 +161,9 @@ plotTracks(trackList = ls,
            cex.main = 0.8)
 
 # save the image ----------------------------------------------------------
-
+oldpath <- getwd()
 setwd(dir = '../')
+
 jpeg(str_c(i,"output.jpg"), width = 5000, height =3090,res = 720)
 plotTracks(trackList = ls,
            transcriptAnnotation="symbol",
@@ -172,6 +174,7 @@ plotTracks(trackList = ls,
            cex.main = 0.8)
 dev.off()
 
+setwd(dir = oldpath)
 
 
 
