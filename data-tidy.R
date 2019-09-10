@@ -77,11 +77,13 @@ cosmid.gr <- GRanges(seqnames = cosmid$chromosome,
 
 library(VariantAnnotation)
 cosmid.gr.ann <- locateVariants(cosmid.gr, txdb, AllVariants())
+cosmid.gr.ann <- unique(cosmid.gr.ann)
 cosmid.gr.ann.c <- cosmid.gr.ann[cosmid.gr.ann$LOCATION == 'coding']
 table(cosmid.gr.ann$LOCATION)
 cas.offfinder.gr.ann  <- locateVariants(cas.offfinder.gr, txdb, AllVariants())
 table(cas.offfinder.gr.ann$LOCATION)
 off.spotter.gr.ann <- locateVariants(off.spotter.gr, txdb, AllVariants())
+off.spotter.gr.ann <- unique(off.spotter.gr.ann)
 table(off.spotter.gr.ann$LOCATION)
 cas.offfinder.gr.ann.c <- cas.offfinder.gr.ann[cas.offfinder.gr.ann$LOCATION == 'coding']
 
