@@ -3,8 +3,7 @@ library(Gviz)
 library(biomaRt)
 library(stringr)
 
-plotGviz <- function(coding.obj, i, bounds, title, path
-                     ){
+plotGviz <- function(coding.obj, i, bounds, title, path){
   chr <- as.character(coding.obj@seqnames[i])
   strand <- as.character(coding.obj@strand[i])
   start <- IRanges::start(coding.obj)[i]
@@ -47,7 +46,7 @@ plotGviz <- function(coding.obj, i, bounds, title, path
   setwd(dir = path)
   sz <- c(1,1,4,1)
   ls <- list(itrack,gatrack,biomTrack,anntrack)
-  mn <- str_c(i,'-',chr,title)
+  mn <- str_c(i,'-',chr,'...',title)
   
   jpeg(filetitle, width = 5000, height =3090,res = 720)
   plotTracks(trackList = ls,
