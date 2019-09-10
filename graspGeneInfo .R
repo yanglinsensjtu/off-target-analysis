@@ -23,6 +23,7 @@ for (i in seq_len(length(geneid$X1))) {
     html_text()
   genename <- html_nodes(NCBIgene, 'body div div form h1 span') %>% 
     html_text()
+  print(i)
   print(genename)
   print(genesummary[10]) 
   
