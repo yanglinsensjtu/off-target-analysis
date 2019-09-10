@@ -116,6 +116,8 @@ for (i in seq_len(length(unique(cosmid.gr.ann.c)))) {
                           gapExtension = 1))
 }
 
-
-
-
+geneid <- unique(c(cas.offfinder.gr.ann.c$GENEID,cosmid.gr.ann.c$GENEID))
+oldpath <- getwd()
+setwd(dir = '../')
+write(geneid, 'geneid.txt')
+setwd(dir = oldpath)
