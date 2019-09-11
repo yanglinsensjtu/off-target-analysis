@@ -29,9 +29,8 @@ for (i in seq_along(coding.obj)) {
            path = '../casofffinder/')
 }
 
-findOverlaps(cosmid.gr, wgs.less100.gr)
-findOverlaps(cosmid.gr,wgs.more100.gr)
-findOverlaps(cas.offfinder.gr, wgs.less100.gr)
-findOverlaps(cas.offfinder.gr, wgs.more100.gr)
+wgs <- c(wgs.less100.gr,wgs.more100.gr)
+findOverlaps(cosmid.gr, wgs)
+findOverlaps(cas.offfinder.gr, wgs)
 
 
