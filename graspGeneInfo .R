@@ -13,11 +13,16 @@ if (!require(stringr)) {
   library(stringr)
 } 
 library(readr)
-library(curl)
+
 
 geneid <- read_csv('../geneid.txt', col_names = F)
+
+# ncbi --------------------------------------------------------------------
+
+
 geneinfo <- vector(mode = 'character',length = length(geneid$X1))
 genenames <- vector(mode = 'character',length = length(geneid$X1))
+
 for (i in seq_len(length(geneid$X1))) {
   
   weburl <- str_c('https://www.ncbi.nlm.nih.gov/gene/?term=',geneid$X1[i])
@@ -34,19 +39,44 @@ for (i in seq_len(length(geneid$X1))) {
   
   
 }
+
+# uniprot -----------------------------------------------------------------
+
+
+gene.disseases <- vector(mode = 'character',length = length(geneid$X1))
+gene.functions <- vector(mode = 'character',length = length(geneid$X1))
+for (i in seq_len(length(off.target.genes$name))) {
+  uniproturl <- str_c('https://www.uniprot.org/uniprot/', off.target.genes$name[i],'_HUMAN')
+  
+  fit <- try(uniprot.gene <- read_html(uniproturl,encoding ='UTF-8'), silent = T)
+  if("try-error" %in% class(fit))
+  {
+    next
+  }
+  else
+  {
+    uniprot.gene = fit
+  }
+  gene.dissease <- html_nodes(uniprot.gene,'.disseaseDescription') %>% 
+    html_text()
+  if (nchar(gene.dissease)==0 | length(gene.dissease) == 0) {
+    gene.dissease <- NA
+  }else{
+    gene.dissease <- gene.dissease
+  }
+  gene.disseases[i] <- str_c(gene.dissease, sep = '', collapse = '')
+  gene.function <- html_nodes(uniprot.gene,'div.annotation:nth-child(2)') %>% 
+    html_text()
+  gene.functions[i] <- gene.function
+  print(i)
+  print(gene.dissease)
+  print(gene.function)
+  
+}
 off.target.genes<- data.frame(name = genenames, info = geneinfo, stringsAsFactors = F)
 
 oldpath <- getwd()
 setwd(dir = '../')
 write.csv(off.target.genes, file = 'offtargetgenes.txt',)
 setwd(dir = oldpath)
-for (i in seq_len(length(off.target.genes$name))) {
-  uniproturl <- str_c('https://www.uniprot.org/uniprot/', off.target.genes$name[i],'_HUMAN')
-  uniprot.gene <- read_html(uniproturl,encoding ='UTF-8')
-  genesummary <- html_nodes(uniprot.gene,'.disseaseDescription') %>% 
-    html_text()
-  print(i)
-  print(genesummary)
-  
-}
 
