@@ -40,11 +40,13 @@ oldpath <- getwd()
 setwd(dir = '../')
 write.csv(off.target.genes, file = 'offtargetgenes.txt',)
 setwd(dir = oldpath)
-i <- 3
-genecardurl <- str_c('https://www.genecards.org/cgi-bin/carddisp.pl?gene=', off.target.genes$name[i])
-genecard.gene <- read_html(curl(genecardurl, 
-                                handle = curl::new_handle("useragent" = "Mozilla/5.0")),
-                           encoding ='UTF-8')
-
-
+for (i in seq_len(length(off.target.genes$name))) {
+  uniproturl <- str_c('https://www.uniprot.org/uniprot/', off.target.genes$name[i],'_HUMAN')
+  uniprot.gene <- read_html(uniproturl,encoding ='UTF-8')
+  genesummary <- html_nodes(uniprot.gene,'.disseaseDescription') %>% 
+    html_text()
+  print(i)
+  print(genesummary)
+  
+}
 
