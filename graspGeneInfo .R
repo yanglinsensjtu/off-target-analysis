@@ -63,7 +63,7 @@ for (i in seq_len(length(off.target.genes$name))) {
   gene.dissease <- html_nodes(uniprot.gene,'.disseaseDescription') %>% 
     html_text()
   print(gene.dissease)
-  if (length(gene.dissease) == 0) {
+  if (length(gene.dissease) == 0 || nchar(gene.dissease) == 0) {
     gene.dissease <- NA
   }else{
     gene.dissease
@@ -72,7 +72,7 @@ for (i in seq_len(length(off.target.genes$name))) {
   gene.function <- html_nodes(uniprot.gene,'div.annotation:nth-child(2)') %>% 
     html_text()
   print(gene.function)
-  if (length(gene.function) == 0) {
+  if (length(gene.function) == 0 || nchar(gene.function) == 0) {
     gene.function <- NA
   }else{
     gene.function
@@ -83,7 +83,7 @@ for (i in seq_len(length(off.target.genes$name))) {
   print(gene.function)
   
 }
-off.target.genes$func <- gene.disseases
+off.target.genes$func <- gene.functions
 off.target.genes$disease <- gene.disseases
 
 oldpath <- getwd()
