@@ -13,6 +13,7 @@ if (!require(stringr)) {
   library(stringr)
 } 
 library(readr)
+library(curl)
 
 geneid <- read_csv('../geneid.txt', col_names = F)
 geneinfo <- vector(mode = 'character',length = length(geneid$X1))
@@ -41,7 +42,9 @@ write.csv(off.target.genes, file = 'offtargetgenes.txt',)
 setwd(dir = oldpath)
 i <- 3
 genecardurl <- str_c('https://www.genecards.org/cgi-bin/carddisp.pl?gene=', off.target.genes$name[i])
-genecard.gene <- read_html(genecardurl, encoding ='UTF-8')
+genecard.gene <- read_html(curl(genecardurl, 
+                                handle = curl::new_handle("useragent" = "Mozilla/5.0")),
+                           encoding ='UTF-8')
 
 
 
