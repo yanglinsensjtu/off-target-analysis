@@ -83,7 +83,8 @@ for (i in seq_len(length(off.target.genes$name))) {
   print(gene.function)
   
 }
-
+off.target.genes$func <- gene.disseases
+off.target.genes$disease <- gene.disseases
 
 oldpath <- getwd()
 setwd(dir = '../')
