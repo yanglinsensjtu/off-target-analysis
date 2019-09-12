@@ -48,3 +48,5 @@ for (i in seq_along(wgs.offtarget.joint.gr)) {
            title = '',
            path = '../wgs-offtarget-common/')
 }
+sgRNA.alignment(grange = wgs.offtarget.joint.gr,
+                sgRNA = targetgene)
