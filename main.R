@@ -33,4 +33,7 @@ wgs <- c(wgs.less100.gr,wgs.more100.gr)
 findOverlaps(cosmid.gr, wgs)
 findOverlaps(cas.offfinder.gr, wgs)
 
+findOverlaps(cosmid.gr.ann, wgs)
+findOverlaps(cas.offfinder.gr.ann, wgs)
 
+a <- findOverlaps(cosmid.gr.ann.c.check.back, cas.offfinder.gr.ann.c.check.back)
