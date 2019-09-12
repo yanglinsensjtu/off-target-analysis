@@ -1,7 +1,7 @@
 library(VariantAnnotation)
 library(vcfR)
-wgs.less100 <- readVcfAsVRanges('../WGS/R19026469LD01-T0502-CAR_vs_R19026468LD01-T0501-MOCK_TN.PASS.vcf-anno.for_crispr.vcf')
-wgs.more100 <- read.vcfR('../WGS/CAR_vs_Normal_somaticSV.vcf.PASS.vcf-anno.vcf')
+wgs.less100 <- readVcfAsVRanges('../somatic-WGS/R19026469LD01-T0502-CAR_vs_R19026468LD01-T0501-MOCK_TN.PASS.vcf-anno.for_crispr.vcf')
+wgs.more100 <- read.vcfR('../somatic-WGS/CAR_vs_Normal_somaticSV.vcf.PASS.vcf-anno.vcf')
 wgs.less100.gr <- GRanges(seqnames = wgs.less100@seqnames[1:37],
                           ranges = IRanges(start = start(wgs.less100@ranges)[1:37]-200,
                                            width = 400),
