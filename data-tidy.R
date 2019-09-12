@@ -125,7 +125,7 @@ setwd(dir = oldpath)
 
 # sgRNA aliganment --------------------------------------------------------
 targetgene <- DNAString(read_lines('../sgRNAseq.txt'))
-sgRNA.aliganment <- function(grange = Grange.obj,
+sgRNA.alignment <- function(grange = Grange.obj,
                              sgRNA = targetgene){
   
   off.target.seq <- getSeq(BS.hg19, unique(grange))
