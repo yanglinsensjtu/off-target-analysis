@@ -3,12 +3,12 @@ library(Gviz)
 library(biomaRt)
 library(stringr)
 
-plotGviz <- function(coding.obj, i, bounds, title, path){
+plotGviz <- function(coding.obj, i, bounds, title = '', path){
   chr <- as.character(coding.obj@seqnames[i])
   strand <- as.character(coding.obj@strand[i])
   start <- IRanges::start(coding.obj)[i]
   end <- IRanges::end(coding.obj)[i]
-  filetitle <- str_c(i,chr,strand,start,'-',end,'.jpg')
+  filetitle <- str_c(i,chr,'-',start,'-',end,'.jpg')
   print(filetitle)
 # annotation track creation -----------------------------------------------
 
