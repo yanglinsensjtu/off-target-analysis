@@ -37,3 +37,14 @@ findOverlaps(cosmid.gr.ann, wgs)
 findOverlaps(cas.offfinder.gr.ann, wgs)
 
 a <- findOverlaps(cosmid.gr.ann.c.check.back, cas.offfinder.gr.ann.c.check.back)
+offtarget.gr <- c(cosmid.gr, cas.offfinder.gr, off.spotter.gr)
+wgs.offtarget <- findOverlaps(wgs.jc, offtarget.gr)
+wgs.offtarget.joint.gr <- unique(wgs.jc[wgs.offtarget@from])
+
+for (i in seq_along(wgs.offtarget.joint.gr)) {
+  plotGviz(coding.obj = wgs.offtarget.joint.gr,
+           i=i,
+           bounds = 20000,
+           title = '',
+           path = '../wgs-offtarget-common/')
+}
