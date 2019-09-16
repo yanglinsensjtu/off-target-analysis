@@ -85,9 +85,10 @@ for (i in seq_len(length(off.target.genes$name))) {
 }
 off.target.genes$func <- gene.functions
 off.target.genes$disease <- gene.disseases
+a <- str_c(off.target.genes$name,sep = '', collapse = ',  ')
 
 oldpath <- getwd()
 setwd(dir = '../')
-write.csv(off.target.genes, file = 'offtargetgenes.txt',)
+write(a, file = 'offtargetgenes.txt',)
 setwd(dir = oldpath)
 

@@ -1,6 +1,7 @@
 source('data-tidy.R')
 source('plot.function.R')
 source('wgs.R')
+source('sgRNA alignment.R')
 
 coding.obj <- cosmid.gr.ann.c.check.back
 
@@ -50,3 +51,6 @@ for (i in seq_along(wgs.offtarget.joint.gr)) {
 }
 sgRNA.alignment(grange = wgs.offtarget.joint.gr,
                 sgRNA = targetgene)
+b <- findOverlaps(wgs.old.jc, wgs.offtarget.joint.gr)
+
+wgs.old.jc[b@from]
