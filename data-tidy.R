@@ -77,6 +77,7 @@ cosmid.gr <- GRanges(seqnames = cosmid$chromosome,
 
 library(VariantAnnotation)
 cosmid.gr.ann <- locateVariants(cosmid.gr, txdb, AllVariants())
+table(unique(cosmid.gr.ann)$LOCATION)
 cosmid.gr.ann.c <- cosmid.gr.ann[cosmid.gr.ann$LOCATION == 'coding']
 cosmid.gr.ann.c <- unique(cosmid.gr.ann.c)
 cosmid.gr.ann.c$GENEID[7] <- 28642
@@ -123,19 +124,5 @@ write(geneid, 'geneid.txt')
 setwd(dir = oldpath)
 
 
-# sgRNA aliganment --------------------------------------------------------
-targetgene <- DNAString(read_lines('../sgRNAseq.txt'))
-sgRNA.alignment <- function(grange = Grange.obj,
-                             sgRNA = targetgene){
-  
-  off.target.seq <- getSeq(BS.hg19, unique(grange))
-  
-  for (i in seq_len(length(unique(grange)))) {
-    print(i)
-    print(pairwiseAlignment(sgRNA, 
-                            off.target.seq[i],
-                            gapOpening = 0,
-                            gapExtension = 1))
-  }
-}
+
   
