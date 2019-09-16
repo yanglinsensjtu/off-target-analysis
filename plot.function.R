@@ -61,3 +61,4 @@ plotGviz <- function(coding.obj, i, bounds, title = '', path){
   setwd(dir = oldpath)
 
 }
+
