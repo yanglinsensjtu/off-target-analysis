@@ -91,31 +91,16 @@ cas.offfinder.gr.ann.c <- cas.offfinder.gr.ann[cas.offfinder.gr.ann$LOCATION == 
 cas.offfinder.gr.ann.c <- unique(cas.offfinder.gr.ann.c)
 cas.offfinder.gr.ann.c.check.back <- cas.offfinder.gr[findOverlaps(cas.offfinder.gr,cas.offfinder.gr.ann.c)@from,]
 cas.offfinder.gr.ann.c.check.back <- unique(cas.offfinder.gr.ann.c.check.back)
+
 # pairwiseAlignment -------------------------------------------------------
-
-library(BSgenome.Hsapiens.UCSC.hg19)
-BS.hg19 <- BSgenome.Hsapiens.UCSC.hg19
-
-off.target.seq <- getSeq(BS.hg19, unique(cas.offfinder.gr.ann.c))
+source('sgRNA alignment.R')
 targetgene <- DNAString(read_lines('../sgRNAseq.txt'))
-for (i in seq_len(length(unique(cas.offfinder.gr.ann.c)))) {
-  print(i)
-  print(pairwiseAlignment(targetgene, 
-                          off.target.seq[i],
-                          gapOpening = 0,
-                          gapExtension = 1))
-}
+sgRNA.alignment(grange = unique(cas.offfinder.gr.ann.c),
+                sgRNA = targetgene)
+sgRNA.alignment(grange = unique(cosmid.gr.ann.c),
+                sgRNA = targetgene)
 
-
-off.target.seq <- getSeq(BS.hg19, unique(cosmid.gr.ann.c))
-targetgene <- DNAString(read_lines('../sgRNAseq.txt'))
-for (i in seq_len(length(unique(cosmid.gr.ann.c)))) {
-  print(i)
-  print(pairwiseAlignment(targetgene, 
-                          off.target.seq[i],
-                          gapOpening = 0,
-                          gapExtension = 1))
-}
+# save the gene id --------------------------------------------------------
 
 geneid <- unique(c(cas.offfinder.gr.ann.c$GENEID,cosmid.gr.ann.c$GENEID))
 oldpath <- getwd()
