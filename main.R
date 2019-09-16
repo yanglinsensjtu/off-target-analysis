@@ -2,6 +2,7 @@ source('data-tidy.R')
 source('plot.function.R')
 source('wgs.R')
 source('sgRNA alignment.R')
+source('changeIRanges.R')
 
 coding.obj <- cosmid.gr.ann.c.check.back
 
@@ -54,3 +55,43 @@ sgRNA.alignment(grange = wgs.offtarget.joint.gr,
 b <- findOverlaps(wgs.old.jc, wgs.offtarget.joint.gr)
 
 wgs.old.jc[b@from]
+
+
+# off target predict site -------------------------------------------------
+
+predict.off.target.coding.site <- union(cas.offfinder.gr.ann.c, cosmid.gr.ann.c)
+
+sgRNA.alignment(grange = predict.off.target.coding.site.ann,
+                sgRNA = targetgene)
+
+for (i in seq_along(predict.off.target.coding.site.ann)) {
+  plotGviz(coding.obj = predict.off.target.coding.site.ann,
+           i=i,
+           bounds = 20000,
+           title = '',
+           path = '../offtarget predict site common/')
+}
+for (i in seq_along(predict.off.target.coding.site)) {
+  plotGviz(coding.obj = predict.off.target.coding.site,
+           i=i,
+           bounds = 20000,
+           title = '',
+           path = '../offtarget predict site common/2/')
+}
+for (i in seq_along(predict.off.target.coding.site.ann.screen)) {
+  plotGviz(coding.obj = predict.off.target.coding.site.ann.screen,
+           i=i,
+           bounds = 20000,
+           title = '',
+           path = '../offtarget predict site common/3/')
+}
+
+sequences <- changeIRanges(granges.obj = predict.off.target.coding.site.ann.screen,
+                           upstream = 300, 
+                           width = 600)
+                     
+sequences.DNA <- toString(getSeq(BS.hg19, sequences))
+oldpath <- getwd()
+setwd(dir = '../')
+write(sequences.DNA, 'predict off target genes sequences.txt')
+setwd(dir = oldpath)

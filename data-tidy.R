@@ -109,4 +109,5 @@ write(geneid, 'geneid.txt')
 setwd(dir = oldpath)
 
 predict.off.target.coding.site <- union(cas.offfinder.gr.ann.c, cosmid.gr.ann.c)
-
+predict.off.target.coding.site.ann <- unique(locateVariants(predict.off.target.coding.site, txdb, AllVariants()))
+predict.off.target.coding.site.ann.screen <- predict.off.target.coding.site.ann[c(2,9,24,25,29)]

@@ -39,8 +39,6 @@ for (i in seq_len(length(geneid$X1))) {
   print(i)
   print(genename)
   print(genesummary[10]) 
-  
-  
 }
 off.target.genes<- data.frame(name = genenames, info = geneinfo, stringsAsFactors = F)
 
