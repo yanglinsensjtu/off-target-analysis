@@ -1,8 +1,8 @@
-changeIRanges <- function(granges = granges, upstream = integer, width = integer){
-  GRanges(seqnames = granges@seqnames,
-          IRanges(start = start(granges@ranges) - upstream, 
+changeIRanges <- function(granges.obj = granges.obj, upstream = integer, width = integer){
+  GRanges(seqnames = granges.obj@seqnames,
+          IRanges(start = start(granges.obj@ranges) - upstream, 
                   width = width),
-          strand = granges@strand,
-          seqinfo = granges@seqinfo,
-          mcols(granges))
+          strand = granges.obj@strand,
+          seqinfo = granges.obj@seqinfo,
+          mcols(granges.obj))
 }
