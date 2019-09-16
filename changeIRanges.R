@@ -1,3 +1,6 @@
+
+# change granges obj ranges -----------------------------------------------
+
 changeIRanges <- function(granges.obj = granges.obj, upstream = integer, width = integer){
   GRanges(seqnames = granges.obj@seqnames,
           IRanges(start = start(granges.obj@ranges) - upstream, 
