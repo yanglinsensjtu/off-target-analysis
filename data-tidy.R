@@ -108,6 +108,5 @@ setwd(dir = '../')
 write(geneid, 'geneid.txt')
 setwd(dir = oldpath)
 
+predict.off.target.coding.site <- union(cas.offfinder.gr.ann.c, cosmid.gr.ann.c)
 
-
-  
