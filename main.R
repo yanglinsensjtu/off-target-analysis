@@ -60,8 +60,8 @@ b <- findOverlaps(wgs.old.jc, wgs.offtarget.joint.gr)
 
 wgs.and.pre.sites <- wgs.offtarget.joint.gr[b@to]
 wgs.and.pre.sites.ex <- changeIRanges(granges.obj = wgs.and.pre.sites,
-                            upstream = 200,
-                            width = 400)
+                            upstream = 300,
+                            width = 600)
 wgs.and.pre.sites.ex.seq <- getSeq(BS.hg19, wgs.and.pre.sites.ex)
 wgs.and.pre.sites.ex.seq.str <- toString(wgs.and.pre.sites.ex.seq)
 oldpath <- getwd()
@@ -108,4 +108,4 @@ setwd(dir = '../')
 write(sequences.DNA, 'predict off target genes sequences.txt')
 setwd(dir = oldpath)
 
-
+source('readBamplot.R')
