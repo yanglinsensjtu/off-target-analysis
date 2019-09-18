@@ -1,15 +1,25 @@
 library(Rsamtools)
-predict.off.target.coding.site.ann.screen <- changeIRanges(granges.obj = predict.off.target.coding.site.ann.screen,
-                                                           upstream = 1000,
-                                                           width = 1000)
 
 
-which <- IRangesList(predict.off.target.coding.site.ann.screen)
-which <- IRangesList(chr1  = IRanges(10000,20000))
+which <- Granges2IRangeslist(wgs.and.pre.sites.ex)
+which1 <- IRangesList(chr1 = IRanges(111000, 111023))
 what <- c("rname", "strand", "pos", "qwidth", "seq")
-param <- ScanBamParam(which = which, what = what)
-file = 'F:/WGS/T0501 T0502 WGS/s1382x10001Somatic/Alignment/BAM/R19026469LD01-T0502-CAR_sorted_dedup_realign.bam'
+param <- ScanBamParam(which = which1, what = what)
+file <-  'F:/WGS/T0501 T0502 WGS/s1382x10001JointCall/Alignment/BAM/R19026468LD01-T0501-MOCK_sorted_dedup_realign.bam'
+index <- 'F:/WGS/T0501 T0502 WGS/s1382x10001JointCall/Alignment/BAM/R19026468LD01-T0501-MOCK_sorted_dedup_realign.bam.bai'
 bam <- scanBam(file = file,
+               index = index,
                param = param)
 
-bam 
+bam
+library(BSgenome.Hsapiens.UCSC.hg19)
+strack <- SequenceTrack(Hsapiens)
+library(Gviz)
+altrack <- AlignmentsTrack(file, 
+                           start = 111000, 
+                           end = 111043, 
+                           chromosome = 'chr1', 
+                           genome = 'hg19',
+                           isPaired = T
+                             )
+plotTracks(c(altrack,strack), chromosome = 'chr1', from = 111000, to = 111043)
