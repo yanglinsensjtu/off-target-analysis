@@ -19,7 +19,7 @@ for (i in seq_along(coding.obj)) {
            title = cas.offfinder.gr.ann.c.check.back$DNA[i],
            path = '../casofffinder/')
 }
-wgs.offtarget.joint.gr <- unique(wgs.jc[wgs.offtarget@from])
+
 for (i in seq_along(wgs.offtarget.joint.gr)) {
   plotGviz(coding.obj = wgs.offtarget.joint.gr,
            i=i,

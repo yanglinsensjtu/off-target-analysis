@@ -20,7 +20,7 @@ offtarget.gr.wgs <- unique(offtarget.gr[wgs.offtarget@to])
 sgRNA.alignment(grange = offtarget.gr.wgs,
                 sgRNA = targetgene)#offtarget predict sgRNA align with the target sgRNA
 
-
+wgs.offtarget.joint.gr <- unique(wgs.jc[wgs.offtarget@from])
 sgRNA.alignment(grange = wgs.offtarget.joint.gr,
                 sgRNA = targetgene)
 b <- findOverlaps(wgs.old.jc, wgs.offtarget.joint.gr)
