@@ -1,6 +1,8 @@
 # gene annotation ---------------------------------------------------------
 
 library(VariantAnnotation)
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
 
 cosmid.gr.ann <- locateVariants(cosmid.gr, txdb, AllVariants())
 table(unique(cosmid.gr.ann)$LOCATION)
@@ -21,3 +23,5 @@ cas.offfinder.gr.ann.c.check.back <- unique(cas.offfinder.gr.ann.c.check.back)
 
 cc <- union(cas.offfinder.gr.ann.c, cosmid.gr.ann.c)
 cco <- union(cc, off.spotter.gr.ann.c) #The union of the three
+cco.ann <- unique(locateVariants(cco, txdb, AllVariants()))
+
