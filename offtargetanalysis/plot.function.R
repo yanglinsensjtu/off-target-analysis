@@ -2,7 +2,13 @@ library(Gviz)
 library(biomaRt)
 library(stringr)
 
-plotGviz <- function(coding.obj, i, bounds, title = '', path){
+plotGviz <- function(coding.obj, i, bounds, plottitle = '', folder){
+  tempfolder <- file.path('..', folder)
+  if (!file.exists(tempfolder)) {
+    print(paste('The upper directory does not exist', folder))
+    print('Creating folder!')
+    dir.create(tempfolder)
+  }
   chr <- as.character(coding.obj@seqnames[i])
   strand <- as.character(coding.obj@strand[i])
   start <- IRanges::start(coding.obj)[i]
@@ -42,11 +48,10 @@ plotGviz <- function(coding.obj, i, bounds, title = '', path){
 
 # save the image ----------------------------------------------------------
   oldpath <- getwd()
-  setwd(dir = path)
+  setwd(dir = tempfolder)
   sz <- c(1,1,4,1)
   ls <- list(itrack,gatrack,biomTrack,anntrack)
-  mn <- str_c(i,'-',chr,'...',title)
-  
+  mn <- str_c(i,'-',chr,'...',plottitle)
   jpeg(filetitle, width = 5000, height =3090,res = 720)
   plotTracks(trackList = ls,
              transcriptAnnotation="symbol",
@@ -58,6 +63,5 @@ plotGviz <- function(coding.obj, i, bounds, title = '', path){
   dev.off()
  
   setwd(dir = oldpath)
-
 }
 
