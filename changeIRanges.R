@@ -1,4 +1,4 @@
-
+library(GenomicRanges)
 # change granges obj ranges -----------------------------------------------
 
 changeIRanges <- function(granges.obj = granges.obj, upstream = integer, width = integer){
