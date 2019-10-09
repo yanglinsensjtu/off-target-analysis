@@ -8,8 +8,6 @@ off.spotter<- read.delim('../off target predicted files/off-spotter.txt',
                          stringsAsFactors = F) %>% 
   as_tibble()
 
-write.csv(off.spotter, 
-          file = '../Off-Spotter.csv')
 cas.offfinder <- read.delim('../off target predicted files/Cas-OFFinder.txt',
                             header = T,
                             stringsAsFactors = F) %>% 
