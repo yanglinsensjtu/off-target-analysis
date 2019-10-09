@@ -35,6 +35,6 @@ cco.ann.co.extend.seq <- getSeq(BS.hg19, cco.ann.co.extend)
 names(cco.ann.co.extend.seq) <- cco.ann.co.extend$GENEID
 names(cco.ann.co.extend.seq)[6] <- '144535'
 writeXStringSet(cco.ann.co.extend.seq, 
-                filepath = '../predict off target genes sequences')
+                filepath = '../predict off target genes sequences.txt')
 
 
