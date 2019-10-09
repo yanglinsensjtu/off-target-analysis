@@ -3,24 +3,21 @@ library(readr)
 library(tibble)
 library(readxl)
 library(dplyr)
-off.spotter<- read.delim('../Off-Spotter.hg19.txt', 
+off.spotter<- read.delim('../off target predicted files/off-spotter.txt', 
                          header = F, 
                          stringsAsFactors = F) %>% 
   as_tibble()
 
 write.csv(off.spotter, 
           file = '../Off-Spotter.csv')
-cas.offfinder <- read.delim('../Cas-OFFinder.hg19.txt',
+cas.offfinder <- read.delim('../off target predicted files/Cas-OFFinder.txt',
                             header = T,
                             stringsAsFactors = F) %>% 
   as_tibble() 
 
-cosmid <- read_xlsx('../cosmid_hg19_kf09aq66ka_output.xlsx')
+cosmid <- read_xlsx('../off target predicted files/cosmid_hg19_output.xlsx')
 
-cosmid.t <- read.delim('../comsid hg19.txt',
-                       header = F, 
-                       stringsAsFactors = F) %>% 
-  as_tibble()
+
 
 
 # transform the data into granges obj -------------------------------------
