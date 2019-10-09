@@ -25,3 +25,4 @@ cc <- union(cas.offfinder.gr.ann.c, cosmid.gr.ann.c)
 cco <- union(cc, off.spotter.gr.ann.c) #The union of the three
 cco.ann <- unique(locateVariants(cco, txdb, AllVariants()))
 
+
