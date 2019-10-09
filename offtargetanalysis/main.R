@@ -1,3 +1,6 @@
 source('offtargetanalysis/sgRNA.alignment.R')
 source('offtargetanalysis/data.tidy.R')
 source('offtargetanalysis/target.anotation.R')
+source('offtargetanalysis/sgRNA.alignment.R')
+sgRNA <- readDNAStringSet('../sgRNA sequence.fasta')
+sgRNA.alignment(cco.ann,sgRNA)
