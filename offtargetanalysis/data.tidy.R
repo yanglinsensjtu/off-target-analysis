@@ -2,10 +2,10 @@
 library(readr)
 library(tibble)
 library(readxl)
-library(dplyr)
+library(magrittr)
 off.spotter<- read.delim('../off target predicted files/off-spotter.txt', 
                          header = F, 
-                         stringsAsFactors = F) %>% 
+                         stringsAsFactors = F) %>%
   as_tibble()
 
 cas.offfinder <- read.delim('../off target predicted files/Cas-OFFinder.txt',
