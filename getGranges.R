@@ -20,4 +20,3 @@ getGranges <- function(chr = chr,
   }
 }
 
-
